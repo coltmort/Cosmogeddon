@@ -4,34 +4,50 @@ const session = require('express-session');
 const exphbs = require('express-handlebars');
 const routes = require('./controllers');
 const helpers = require('./utils/helpers');
-
-// add websockets
-
+const app = express();
 const sequelize = require('./config/connection');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
+const http = require('http')
+const server = http.createServer(app);
+const io = require('socket.io')(server);
+const Game = require('./controllers/game/game.js')
+const Ship = require('./controllers/game/ship.js')
 
-const app = express();
-const PORT = process.env.PORT || 3001;
+const game1 = new Game(60)
+io.on('connection', client => {
+  const player = game1.ships.push(new Ship(game1,50,50,50,50))
+  console.log(game1)
+  console.log('connected')
+  client.on('input', data => { });
+  
+  client.on('disconnect', () => { /* … */ });
+});
+
+
+
+
+
+
 
 // Set up Handlebars.js engine with custom helpers
 const hbs = exphbs.create({ helpers });
 
-const sess = {
-  secret: 'Super secret secret',
-  cookie: {
-    maxAge: 300000,
-    httpOnly: true,
-    secure: false,
-    sameSite: 'strict',
-  },
-  resave: false,
-  saveUninitialized: true,
-  store: new SequelizeStore({
-    db: sequelize
-  })
-};
+// const sess = {
+//   secret: 'Super secret secret',
+//   cookie: {
+//     maxAge: 300000,
+//     httpOnly: true,
+//     secure: false,
+//     sameSite: 'strict',
+//   },
+//   resave: false,
+//   saveUninitialized: true,
+//   store: new SequelizeStore({
+//     db: sequelize
+//   })
+// };
 
-app.use(session(sess));
+// app.use(session(sess));
 
 // Inform Express.js on which template engine to use
 app.engine('handlebars', hbs.engine);
@@ -43,6 +59,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(routes);
 
-sequelize.sync({ force: false }).then(() => {
-  app.listen(PORT, () => console.log('Now listening'));
-});
+//sequelize.sync({ force: false }).then(() => {
+  server.listen(process.env.PORT || 3001,  () => console.log('Now listening'));
+//});
