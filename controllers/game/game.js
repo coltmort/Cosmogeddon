@@ -1,4 +1,4 @@
-const ship = require('./ship.js');
+const Ship = require('./ship.js');
 
 class Game {
 
