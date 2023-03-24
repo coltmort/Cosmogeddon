@@ -13,12 +13,18 @@ const io = require('socket.io')(server);
 const Game = require('./controllers/game/game.js')
 const Ship = require('./controllers/game/ship.js')
 
-const game1 = new Game(60)
+let game1 = new Game(60)
 io.on('connection', client => {
-  const player = game1.ships.push(new Ship(game1,50,50,50,50))
-  client.on('input', data => { player.input = data});
+  let player = game1.ships[client.id] = new Ship(game1, 50, 50, 50, 50, 1)
+  client.on('input', data => {
+    player.input = data
+    // console.log(data)
+    // console.log(game1)
+    // console.log(game1.ships)
+  });
   setInterval(() => { client.emit('tick', game1) }, 1000 / 60);
-  client.on('disconnect', () => { /* … */ });
+  client.on('disconnect', () => { delete player});
+  
 });
 
 // Set up Handlebars.js engine with custom helpers

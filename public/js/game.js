@@ -13,7 +13,7 @@ async function setup() {
     const socket = io.connect();
     socket.on('tick', (data) => { draw(data) });
    
-    function draw(game) { console.log(game);
+    function draw(game) { 
       
         socket.emit('input', { //send input 
             x: (input['d'] || input['ArrowRight'] ? 1 : 0) - (input['a'] || input['ArrowLeft'] ? 1 : 0),
@@ -24,15 +24,13 @@ async function setup() {
         context.strokeStyle = '#cccccc'; 
         context.fillRect(0, 0, canvas.width, canvas.height);
 
-        game?.aestroids?.forEach(aestroid => {
+        
+
+        Object.values(game?.ships).forEach(ship => {
+            context.fillStyle = 'red';
+            context.fillRect(ship.x, ship.y, ship.r, ship.r)
+        //   console.log (ship);
         });
 
-        game?.ships?.forEach(ship => {
-          //console.log (ship);
-        });
-
-        game?.lazers?.forEach(lazer => {
- 
-        });
     }
 };

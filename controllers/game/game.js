@@ -3,7 +3,7 @@
 class Game {
 
     constructor(tickrate) {
-        this.ships = [];
+        this.ships = {};
         this.asteroids = [];
         this.lazers = [];
         this.width = 1280;
@@ -14,9 +14,9 @@ class Game {
     
         }
          tick()  {
-            this.ships.forEach(ship => { ship.tick(this); });
-            this.asteroids.forEach(asteroid => { asteroid.tick(this); });
-            this.lazers.forEach(lazer => { lazer.tick(this); });
+            Object.values(this.ships).forEach(ship => { ship.tick(this); });
+            // this.asteroids.forEach(asteroid => { asteroid.tick(this); });
+            // this.lazers.forEach(lazer => { lazer.tick(this); });
          }
     }
 
