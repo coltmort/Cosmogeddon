@@ -13,8 +13,7 @@ class Ship {
         this.xv = 0;
         this.yv = 0;
         this.friction = .93;
-        // this.angle = 0 * (Math.pi / 180);
-
+        this.angle = 180;
     }    
 
     tick(game) {
@@ -22,8 +21,11 @@ class Ship {
         this.yv *= this.friction;
         this.x += this.xv;
         this.y += this.yv;
-        this.xv +=this.input.x * this.speed;
-        this.yv +=this.input.y * this.speed;
+        this.xv += (Math.sin(this.angle)) * this.speed * this.input.y;
+        this.yv += (Math.cos(this.angle)) * this.speed * this.input.y;
+        this.angle += this.input.x;
+        console.log(this.angle);
+
         if(this.x < 0 - this.r) {
             this.x = game.width + this.r;
         }         
