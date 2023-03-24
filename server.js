@@ -16,18 +16,10 @@ const Ship = require('./controllers/game/ship.js')
 const game1 = new Game(60)
 io.on('connection', client => {
   const player = game1.ships.push(new Ship(game1,50,50,50,50))
-  console.log(game1)
-  console.log('connected')
-  client.on('input', data => { });
-  
+  client.on('input', data => { player.input = data});
+  setInterval(() => { client.emit('tick', game1) }, 1000 / 60);
   client.on('disconnect', () => { /* … */ });
 });
-
-
-
-
-
-
 
 // Set up Handlebars.js engine with custom helpers
 const hbs = exphbs.create({ helpers });
