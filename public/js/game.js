@@ -1,7 +1,7 @@
 
-game();
+setup();
 
-async function game() {
+async function setup() {
 
     const canvas = document.getElementById('game');
     const context = canvas.getContext('2d');
@@ -11,12 +11,9 @@ async function game() {
     document.addEventListener('keyup', (event) => { input[event.key] = false; });
     
     const socket = io.connect();
-    let game;
-    socket.on('tick', (data) => { game = data; });
-
-    setInterval(draw() , 1000 / 128);
+    socket.on('tick', (data) => { draw(data) });
    
-    function draw() { 
+    function draw(game) { console.log(game);
       
         socket.emit('input', { //send input 
             x: (input['d'] || input['ArrowRight'] ? 1 : 0) - (input['a'] || input['ArrowLeft'] ? 1 : 0),
@@ -27,15 +24,14 @@ async function game() {
         context.strokeStyle = '#cccccc'; 
         context.fillRect(0, 0, canvas.width, canvas.height);
 
-        game.aestroids.forEach(aestroid => {
-
+        game?.aestroids?.forEach(aestroid => {
         });
 
-        game.ships.forEach(ship => {
-
+        game?.ships?.forEach(ship => {
+          //console.log (ship);
         });
 
-        game.lazers.forEach(lazer => {
+        game?.lazers?.forEach(lazer => {
  
         });
     }
