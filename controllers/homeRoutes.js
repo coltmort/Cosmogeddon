@@ -4,35 +4,19 @@ const withAuth = require('../utils/auth');
 
 router.get('/', async (req, res) => {
 
+    res.render('homepage', {
 
-  // is game for testing only. switch back to homepage for production
-    res.render('game', {
-
-      // logged_in: req.session.logged_in
+       logged_in: req.session.logged_in
     });
   });
 
-router.get('/project/:id', async (req, res) => {
-  try {
-    const projectData = await Project.findByPk(req.params.id, {
-      include: [
-        {
-          model: User,
-          attributes: ['name'],
-        },
-      ],
-    });
+router.get('/game', async (req, res) => {
 
-    const project = projectData.get({ plain: true });
+    res.render('game', {
 
-    res.render('project', {
-      ...project,
-      logged_in: req.session.logged_in
+       logged_in: req.session.logged_in 
     });
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
+  });
 
 // Use withAuth middleware to prevent access to route
 router.get('/profile', withAuth, async (req, res) => {
@@ -40,7 +24,6 @@ router.get('/profile', withAuth, async (req, res) => {
     // Find the logged in user based on the session ID
     const userData = await User.findByPk(req.session.user_id, {
       attributes: { exclude: ['password'] },
-      include: [{ model: Project }],
     });
 
     const user = userData.get({ plain: true });
@@ -62,6 +45,10 @@ router.get('/login', (req, res) => {
   }
 
   res.render('login');
+});
+
+router.get('/signup', async (req, res) => {
+  res.render('signup');
 });
 
 module.exports = router;
