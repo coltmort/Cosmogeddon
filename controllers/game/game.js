@@ -1,18 +1,23 @@
+const Asteroid = require('./asteroid.js');
 
 class Game {
 
     constructor(tickrate) {
-        this.ships = [];
+        this.ships = {};
         this.asteroids = [];
         this.lazers = [];
-        this.tickInterval = setInterval(this.tick(this), 1000 / tickrate);
-    }
+        this.width = 1280;
+        this.height = 720;
+        this.asteroidSpawnRate = .01;
+        setInterval(()=> this.tick(), 1000/tickrate);
+        }
 
-    tick(game) {
-        this.ships.forEach(ship => { ship.tick(game); });
-        this.asteroids.forEach(asteroid => { asteroid.tick(game); });
-        this.lazers.forEach(lazer => { lazer.tick(game); });
+        tick()  {
+            Object.values(this.ships).forEach(ship => { ship.tick(this); });
+            this.asteroids.forEach(asteroid => { asteroid.tick(this); });
+            this.lazers.forEach(lazer => { lazer.tick(this); });
+            if ( this.asteroids.length < 20 && Math.random() < this.asteroidSpawnRate) this.asteroids.push(new Asteroid(this)); 
+        }
     }
-}
 
 module.exports = Game;

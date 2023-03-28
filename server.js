@@ -4,14 +4,22 @@ const session = require('express-session');
 const exphbs = require('express-handlebars');
 const routes = require('./controllers');
 const helpers = require('./utils/helpers');
-
-// add websockets
-
+const app = express();
 const sequelize = require('./config/connection');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
+const http = require('http')
+const server = http.createServer(app);
+const io = require('socket.io')(server);
+const Game = require('./controllers/game/game.js')
+const Ship = require('./controllers/game/ship.js')
 
-const app = express();
-const PORT = process.env.PORT || 3001;
+let game1 = new Game(60)
+io.on('connection', client => {
+  let player = game1.ships[client.id] = new Ship(game1)
+  client.on('input', data => { player.input = data});
+  setInterval(() => { client.emit('tick', game1) }, 1000 / 60);
+  client.on('disconnect', () => { delete game1.ships[client.id] });
+});
 
 // Set up Handlebars.js engine with custom helpers
 const hbs = exphbs.create({ helpers });
@@ -44,5 +52,5 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(routes);
 
 sequelize.sync({ force: false }).then(() => {
-  app.listen(PORT, () => console.log('Now listening'));
+  server.listen(process.env.PORT || 3001,  () => console.log('Now listening'));
 });

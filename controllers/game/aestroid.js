@@ -1,7 +1,0 @@
-
-class Asteroid {
-
-    tick(game) {
-        
-    }
-}
