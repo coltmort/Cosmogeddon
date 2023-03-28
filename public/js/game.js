@@ -10,7 +10,9 @@ async function setup() {
     document.addEventListener('keydown', (event) => { input[event.key] = true; });
     document.addEventListener('keyup', (event) => { input[event.key] = false; });
 
+    let name = prompt( 'what name do you want?');
     const socket = io.connect();
+    socket.emit('name', name);
     let game;
     socket.on('tick', (data) => { game = data; });
 
@@ -67,6 +69,12 @@ async function setup() {
             context.fill();
             context.stroke();
             context.restore();
+
+            context.fillStyle = "orange" //name
+            context.font = "30px sans-serif";
+            context.textAlign = 'center';
+            context.fillText(ship.name, ship.x, ship.y - 50);
+            context.fillStyle = "black"
         });
 
         game?.asteroids?.forEach(asteroid => { console.log(game.asteroids.length)
