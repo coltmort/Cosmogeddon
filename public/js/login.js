@@ -15,12 +15,20 @@ const loginFormHandler = async (event) => {
 
     if (response.ok) {
       // If successful, redirect the browser to the profile page
-      document.location.replace('/profile');
+      document.location.replace('/dashboard')
     } else {
       alert(response.statusText);
     }
   }
 };
+
+function toSignup(){
+  document.location.replace('/signup')
+}
+
+document
+  .querySelector('.to-signup')
+  .addEventListener('click', toSignup)
 
 document
   .querySelector('.login-form')

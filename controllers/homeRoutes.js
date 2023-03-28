@@ -4,22 +4,37 @@ const withAuth = require('../utils/auth');
 
 router.get('/', async (req, res) => {
 
-    res.render('homepage', {
+  // is game for testing only. switch back to homepage for production
+    res.render('login', {
 
-       logged_in: req.session.logged_in
+      logged_in: req.session.logged_in
     });
   });
 
-router.get('/game', async (req, res) => {
+router.get('/user/:email', async (req, res) => {
+  try {
+    const userData = await User.findOne({where:{email: req.params.email},
+      include: [
+        {
+          model: User,
+          attributes: ['name'],
+        },
+      ],
+    });
+
+    const user = userData.get({ plain: true });
 
     res.render('game', {
-
-       logged_in: req.session.logged_in 
+      ...user,
+      logged_in: req.session.logged_in
     });
-  });
+  }
+catch(err){
+  console.log(err)
+}});
 
 // Use withAuth middleware to prevent access to route
-router.get('/profile', withAuth, async (req, res) => {
+router.get('/dashboard', withAuth, async (req, res) => {
   try {
     // Find the logged in user based on the session ID
     const userData = await User.findByPk(req.session.user_id, {
@@ -28,7 +43,7 @@ router.get('/profile', withAuth, async (req, res) => {
 
     const user = userData.get({ plain: true });
 
-    res.render('profile', {
+    res.render('dashboard', {
       ...user,
       logged_in: true
     });
