@@ -2,7 +2,7 @@
 const Lazer = require('./lazer.js');
 
 class Ship {
-    constructor(game) {
+    constructor(game ,name) {
         this.input = {forward:0, shoot:0, left:0, right: 0}
         this.x = game.width / 2; //starting x
         this.y = game.height / 2; //starting y
@@ -15,6 +15,7 @@ class Ship {
         this.angle = 0;
         this.xv = 0;
         this.yv = 0;
+        this.name = name;
     }
 
     tick(game) {
