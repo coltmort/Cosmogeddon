@@ -1,0 +1,15 @@
+<header class=" bg-stone-300 flex justify-between content-center py-5 px-10">
+    <h1 class="text-2xl font-extrabold">
+        <span role="img" aria-label="Rocket">🚀</span>
+        <a href="/">ubiquitous funicular</a>
+    </h1>
+    <nav>
+        <!-- Conditionally render login or logout links -->
+        {{#if logged_in}}
+        <a href="/profile">profile</a> |
+        <button class="no-button" id="logout">logout</button>
+        {{else}}
+        <a href="/login">login</a>
+        {{/if}}
+    </nav>
+</header>
