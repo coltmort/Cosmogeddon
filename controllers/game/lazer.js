@@ -23,7 +23,7 @@ class Lazer {
                 game.asteroids.splice(game.asteroids.indexOf(asteroid), 1);
                 game.lazers.splice(game.lazers.indexOf(this), 1);
 
-                if (asteroid.r > 20) {
+                if ((asteroid.r/2) > game.smallestAsteroidRadius) {
                     game.asteroids.push(new Asteroid(game, asteroid.r /2, asteroid.x, asteroid.y));
                     game.asteroids.push(new Asteroid(game, asteroid.r /2, asteroid.x, asteroid.y));
                 }
