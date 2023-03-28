@@ -1,29 +1,35 @@
 
 class Asteroid {
-    constructor(game) {
+    constructor(game, radius = Math.random() *100, x, y) {
 
-        this.r = Math.random() *100; //radius
+        this.r = radius //radius
         if(this.r < 20) { this.r = 20; } //minimum radius
         this.xv = Math.random() *8 -4; 
         this.yv = Math.random() *8 -4; 
-        switch (Math.ceil(Math.random() * 4)) {//random edge of screen
-            case 1:
-                this.x = -this.r;
-                this.y = Math.random() * game.height;
-                break;
-            case 2:
-                this.x = game.width + this.r;
-                this.y = Math.random() * game.height;
-                break;
-            case 3:
-                this.x = Math.random() * game.width;
-                this.y = -this.r;
-                break;
-            case 4:
-                this.x = Math.random() * game.width;
-                this.y = game.height + this.r;
-                break;
-        }
+        this.x=x;
+        this.y=y;
+
+        if(x == undefined){ 
+            switch (Math.ceil(Math.random() * 4)) {//random edge of screen
+                case 1:
+                    this.x = -this.r;
+                    this.y = Math.random() * game.height;
+                    break;
+                case 2:
+                    this.x = game.width + this.r;
+                    this.y = Math.random() * game.height;
+                    break;
+                case 3:
+                    this.x = Math.random() * game.width;
+                    this.y = -this.r;
+                    break;
+                case 4:
+                    this.x = Math.random() * game.width;
+                    this.y = game.height + this.r;
+                    break;
+            }
+        } 
+           
     };
 
     tick(game) {
