@@ -11,6 +11,14 @@ router.get('/', async (req, res) => {
     });
   });
 
+  router.get('/game', async (req, res) => {
+
+    res.render('game', {
+
+       logged_in: req.session.logged_in
+    });
+  });
+
 router.get('/user/:email', async (req, res) => {
   try {
     const userData = await User.findOne({where:{email: req.params.email},
