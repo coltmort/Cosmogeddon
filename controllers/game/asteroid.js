@@ -7,7 +7,9 @@ class Asteroid {
         this.xv = Math.random() *8 -4; 
         this.yv = Math.random() *8 -4; 
         this.x=x;
-        this.y=y;
+        this.y=y; 
+        this.lives = (this.r *.1); //bigger asteroids is the more lives it will have
+                           // ^ smaller number here means weaker asteroid      
 
         if(x == undefined){ // spawn on random edge of world if no start position is given
             switch (Math.ceil(Math.random() * 4)) {

@@ -6,9 +6,9 @@ class Ship {
         this.input = {forward:0, shoot:0, left:0, right: 0}
         this.r = 20; //radius
         this.reload = 0;
-        this.speed = .3;
+        this.speed = .2;
         this.torque = .06; //turning speed
-        this.friction = .95;
+        this.friction = .975;
         this.angle = 0;
         this.name = name;
         this.reset(game);
@@ -36,6 +36,7 @@ class Ship {
         this.yv = 0;
         this.lives = 50;
         this.maxlives = this.lives;
+        if(game.asteroidSpawnRate > 0) { this.lives = 0; } // if player joins existing game, they are dead and only spectating until next round
     }
 
     tick(game) {

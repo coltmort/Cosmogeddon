@@ -3,21 +3,18 @@ const { Project, User } = require('../models');
 const withAuth = require('../utils/auth');
 
 router.get('/', async (req, res) => {
-
-  // is game for testing only. switch back to homepage for production
-    res.render('login', {
-
+    res.render('homepage', {
       logged_in: req.session.logged_in
     });
+});
+
+router.get('/game', async (req, res) => {
+
+  res.render('game', {
+
+      logged_in: req.session.logged_in
   });
-
-  router.get('/game', async (req, res) => {
-
-    res.render('game', {
-
-       logged_in: req.session.logged_in
-    });
-  });
+});
 
 router.get('/user/:email', async (req, res) => {
   try {
@@ -41,8 +38,8 @@ catch(err){
   console.log(err)
 }});
 
-// Use withAuth middleware to prevent access to route
-router.get('/dashboard', withAuth, async (req, res) => {
+// Got rid of withAuth middleware... So people can play without account as a guest
+router.get('/dashboard', async (req, res) => {
   try {
     // Find the logged in user based on the session ID
     const userData = await User.findByPk(req.session.user_id, {
@@ -56,22 +53,15 @@ router.get('/dashboard', withAuth, async (req, res) => {
       logged_in: true
     });
   } catch (err) {
-    res.status(500).json(err);
+    res.render('dashboard', {
+      name: "Guest",
+      logged_in: true
+    });
   }
 });
 
-router.get('/login', (req, res) => {
-  // If the user is already logged in, redirect the request to another route
-  if (req.session.logged_in) {
-    res.redirect('/profile');
-    return;
-  }
+router.get('/login', (req, res) => { res.render('login'); });
 
-  res.render('login');
-});
-
-router.get('/signup', async (req, res) => {
-  res.render('signup');
-});
+router.get('/signup', async (req, res) => { res.render('signup'); });
 
 module.exports = router;

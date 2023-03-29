@@ -38,6 +38,16 @@ async function setup() {
         context.strokeStyle = 'silver';
         context.fillRect(0, 0, canvas.width, canvas.height);
 
+        if(game.asteroidSpawnRate == 0) { //score
+            if(game.score == 0) {
+                document.getElementById('score').innerHTML = `<span style="color: white;"> New Game </span> starting soon!`;
+            } else { 
+                document.getElementById('score').innerHTML = `Your fleet destroyed <span style="color: white;">${game.score}</span> asteroids before defeat!`;
+            }
+        } else {
+            document.getElementById('score').innerHTML = `<span style="color: white;">Score:</span> ${game.score}`;
+        }
+
         game?.lazers?.forEach(lazer => { // console.log(lazer);
             context.strokeStyle = "orange";
             context.beginPath()
