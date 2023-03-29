@@ -38,6 +38,16 @@ async function setup() {
         context.strokeStyle = 'silver';
         context.fillRect(0, 0, canvas.width, canvas.height);
 
+        if(game.asteroidSpawnRate == 0) { //score
+            if(game.score == 0) {
+                document.getElementById('score').innerHTML = `<span style="color: white;"> New Game </span> starting soon!`;
+            } else { 
+                document.getElementById('score').innerHTML = `Your fleet destroyed <span style="color: white;">${game.score}</span> asteroids before defeat!`;
+            }
+        } else {
+            document.getElementById('score').innerHTML = `<span style="color: white;">Score:</span> ${game.score}`;
+        }
+
         game?.lazers?.forEach(lazer => { // console.log(lazer);
             context.strokeStyle = "orange";
             context.beginPath()
@@ -48,6 +58,8 @@ async function setup() {
         });
 
         Object.values(game?.ships).forEach(ship => { // console.log(ship)
+            if(ship.lives <= 0){ return } // don't draw dead ships
+
             context.save();
             context.translate(ship.x, ship.y)
             context.rotate(-ship.angle)
@@ -71,13 +83,21 @@ async function setup() {
             context.restore();
 
             context.fillStyle = "orange" //name
-            context.font = "30px sans-serif";
+            context.font = ship.r * 1.5 + "px sans-serif";
             context.textAlign = 'center';
-            context.fillText(ship.name, ship.x, ship.y - 50);
+            context.fillText(ship.name, ship.x, ship.y - ship.r * 2.5);
             context.fillStyle = "black"
+
+            context.strokeStyle = "orange" // health bar
+            context.beginPath();
+            let healthWidth = ship.r * 3.5;
+            context.moveTo(ship.x - (healthWidth / 2), ship.y - ship.r * 2);
+            context.lineTo(( ship.x - (healthWidth / 2)) + ( healthWidth * ( ship.lives / ship.maxlives)), ship.y - (ship.r * 2 ));
+            context.stroke();
+            context.strokeStyle = 'silver';
         });
 
-        game?.asteroids?.forEach(asteroid => { console.log(game.asteroids.length)
+        game?.asteroids?.forEach(asteroid => { // console.log(game.asteroids.length)
             context.strokeStyle = 'silver';
             context.beginPath();
             context.arc(asteroid.x, asteroid.y, asteroid.r, 0, 2 * Math.PI);

@@ -20,12 +20,15 @@ class Lazer {
 
         for (let asteroid of game.asteroids){ 
             if(distanceBetween(this.x, this.y, asteroid.x, asteroid.y) < asteroid.r ){
-                game.asteroids.splice(game.asteroids.indexOf(asteroid), 1);
                 game.lazers.splice(game.lazers.indexOf(this), 1);
-
-                if (asteroid.r > 20) {
-                    game.asteroids.push(new Asteroid(game, asteroid.r /2, asteroid.x, asteroid.y));
-                    game.asteroids.push(new Asteroid(game, asteroid.r /2, asteroid.x, asteroid.y));
+                asteroid.lives --;
+                if (asteroid.lives <= 0) {
+                    game.asteroids.splice(game.asteroids.indexOf(asteroid), 1);
+                    game.score ++;
+                    if ((asteroid.r/2) > game.smallestAsteroidRadius) {
+                        game.asteroids.push(new Asteroid(game, asteroid.r /2, asteroid.x, asteroid.y));
+                        game.asteroids.push(new Asteroid(game, asteroid.r /2, asteroid.x, asteroid.y));
+                    }
                 }
             }
         }

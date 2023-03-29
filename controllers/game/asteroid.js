@@ -3,14 +3,16 @@ class Asteroid {
     constructor(game, radius = Math.random() *100, x, y) {
 
         this.r = radius //radius
-        if(this.r < 20) { this.r = 20; } //minimum radius
+        if(this.r < game.smallestAsteroidRadius) { this.r = game.smallestAsteroidRadius; } 
         this.xv = Math.random() *8 -4; 
         this.yv = Math.random() *8 -4; 
         this.x=x;
-        this.y=y;
+        this.y=y; 
+        this.lives = (this.r *.1); //bigger asteroids is the more lives it will have
+                           // ^ smaller number here means weaker asteroid      
 
-        if(x == undefined){ 
-            switch (Math.ceil(Math.random() * 4)) {//random edge of screen
+        if(x == undefined){ // spawn on random edge of world if no start position is given
+            switch (Math.ceil(Math.random() * 4)) {
                 case 1:
                     this.x = -this.r;
                     this.y = Math.random() * game.height;
