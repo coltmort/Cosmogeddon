@@ -4,38 +4,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Multiplayer Asteroids</title>
+  <title>Cosmogeddon</title>
   <link rel="stylesheet" href="/css/output.css">
 </head>
- <style>
-    .custom-bg { /* there is someway to stop page rendering until image loads but couldnt find it */
-      background-color: #23262a; /* stop white flash when changing between pages (fallback color) */
-      background-image: url('https://source.unsplash.com/jNKjqQQB5Gw/1920x1279'); /* space background image */
-      background-size: cover;
-      background-position: center;
-    }
-    
-    .h-main {
-      height: 80vh; /* adjust to include nav and footer if we add one */
-    }
-  </style>
 
-<body class="custom-bg" >
+
+
+<body class="overflow-clip bg-[#23262a] bg-cover bg-center h-[90vh]" style="background-image: url('https://source.unsplash.com/jNKjqQQB5Gw/1920x1279')" >
   <div class= "flex-col justify-around">
-    {{!-- {{>header}} --}}
+    {{>header}}
     <main class="m-0 p-0 max-h-full">
-      <nav class="text-2xl font-extrabold bg-orange-500 p-2 flex justify-between">
-        <a href="/" class ="hover:text-white">🌑 Multiplayer Asteroids</a>
-          <!-- Render script for logged in users only -->
-          {{#if logged_in}}
-            <button class="no-button hover:text-white" id="logout">logout</button>
-          {{else}}
-            <a href="/login " class="hover:text-white">login</a>
-          {{/if}}
 
-      </nav>
       {{{ body }}}
-    
+
     </main>
 
     <footer>
