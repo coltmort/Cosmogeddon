@@ -4,7 +4,7 @@ const Lazer = require('./lazer.js');
 class Ship {
     constructor(game ,name) {
         this.input = {forward:0, shoot:0, left:0, right: 0}
-        this.r = 20; //radius
+        this.r = 10; //radius
         this.reload = 0;
         this.burstReload = 0;
         this.speed = .2;
@@ -18,7 +18,7 @@ class Ship {
     reset(game) {
         this.x = game.width / 2;
         this.y = game.height / 2;
-        
+
         const overlappingOtherShips = (game) => {
             for (let ship of Object.values(game.ships)) {
                 if (distanceBetween(ship.x, ship.y, this.x, this.y) < ship.r + this.r) { return true; }
@@ -50,8 +50,9 @@ class Ship {
 
     shoot(game) {
         if (this.reload > 0) { this.reload--; return;}
-        if(this.input.shoot) { 
+        if(this.input.shoot) {
             game.lazers.push(new Lazer(this.x, this.y, this.angle, 10, 2));
+
             this.reload = 20;
         } 
     } 
@@ -63,7 +64,7 @@ class Ship {
         this.y += this.yv;
         this.angle += ((this.input.left - this.input.right) * this.torque) ;
         this.angle = this.angle % (2 * Math.PI); //make valid radian angle between 0 and 2 PI
-        this.xv += Math.sin(this.angle) * this.input.forward * this.speed; 
+        this.xv += Math.sin(this.angle) * this.input.forward * this.speed;
         this.yv += Math.cos(this.angle) * this.input.forward * this.speed;
     }
 
@@ -75,7 +76,7 @@ class Ship {
     }
 
     crash(game) {
-        for (let asteroid of game.asteroids){ 
+        for (let asteroid of game.asteroids){
             if(distanceBetween(this.x, this.y, asteroid.x, asteroid.y) < asteroid.r + this.r ){
                 this.lives -= 10;
                 game.asteroids.splice(game.asteroids.indexOf(asteroid), 1);

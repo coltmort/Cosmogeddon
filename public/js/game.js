@@ -24,7 +24,7 @@ async function setup() {
     });}, 1000/30);
 
     setInterval(() => { draw(game) }, 1000/256); // draw as fast as possible
-    function draw(game) { 
+    function draw(game) {
 
         socket.emit('input', { // send input
             right: (input['d'] || input['ArrowRight'] ? 1 : 0),
@@ -41,7 +41,7 @@ async function setup() {
         if(game.asteroidSpawnRate == 0) { //score
             if(game.score == 0) {
                 document.getElementById('score').innerHTML = `<span style="color: white;"> New Game </span> starting soon!`;
-            } else { 
+            } else {
                 document.getElementById('score').innerHTML = `Your fleet destroyed <span style="color: white;">${game.score}</span> asteroids before defeat!`;
             }
         } else {
@@ -54,7 +54,7 @@ async function setup() {
             context.moveTo(lazer.x, lazer.y);
             context.lineTo(lazer.x - lazer.xv, lazer.y - lazer.yv);
             context.closePath()
-            context.stroke(); 
+            context.stroke();
         });
 
         Object.values(game?.ships).forEach(ship => { // console.log(ship)
@@ -74,9 +74,9 @@ async function setup() {
             }
             context.strokeStyle = 'silver'; // ship body
             context.beginPath()
-            context.moveTo(0, ship.r)
-            context.lineTo(-ship.r * .6, -ship.r *.6)
-            context.quadraticCurveTo(0, 0, ship.r *.6, -ship.r * .6)
+            context.moveTo(0, ship.r * 2)
+            context.lineTo(-ship.r, -ship.r)
+            context.quadraticCurveTo(0, 0, ship.r, -ship.r)
             context.closePath()
             context.fill();
             context.stroke();
@@ -101,8 +101,8 @@ async function setup() {
             context.strokeStyle = 'silver';
             context.beginPath();
             context.arc(asteroid.x, asteroid.y, asteroid.r, 0, 2 * Math.PI);
-            context.fill(); 
-            context.stroke(); 
+            context.fill();
+            context.stroke();
         });
     }
 };
