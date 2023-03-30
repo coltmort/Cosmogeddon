@@ -23,6 +23,7 @@ Can you master the Cosmogeddon and save the galaxy from destruction?
 ## Credits
 
 N/A
+
 ## License
 
 N/A
