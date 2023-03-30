@@ -6,8 +6,9 @@ class Ship {
         this.input = {forward:0, shoot:0, left:0, right: 0}
         this.r = 20; //radius
         this.reload = 0;
+        this.burstReload = 0;
         this.speed = .2;
-        this.torque = .06; //turning speed
+        this.torque = .07; //turning speed
         this.friction = .975;
         this.angle = 0;
         this.name = name;
@@ -51,7 +52,7 @@ class Ship {
         if (this.reload > 0) { this.reload--; return;}
         if(this.input.shoot) { 
             game.lazers.push(new Lazer(this.x, this.y, this.angle, 10, 2));
-            this.reload = 5;
+            this.reload = 20;
         } 
     } 
 
