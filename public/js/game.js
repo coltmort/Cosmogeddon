@@ -1,4 +1,5 @@
 
+
 setup();
 
 async function setup() {
@@ -10,7 +11,8 @@ async function setup() {
     document.addEventListener('keydown', (event) => { input[event.key] = true; });
     document.addEventListener('keyup', (event) => { input[event.key] = false; });
 
-    let name = prompt( 'what name do you want?');
+    // let name = prompt( 'what name do you want?');
+    const name = localStorage.getItem('name')
     const socket = io.connect();
     socket.emit('name', name);
     let game;

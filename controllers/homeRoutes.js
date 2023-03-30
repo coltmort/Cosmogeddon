@@ -55,10 +55,15 @@ router.get('/dashboard', async (req, res) => {
   } catch (err) {
     res.render('dashboard', {
       name: "Guest",
-      logged_in: true
+      logged_in: false
     });
   }
 });
+
+router.get('/game', (req, res) => {
+  console.log(req.body)
+  res.render('game')
+})
 
 router.get('/login', (req, res) => { res.render('login'); });
 

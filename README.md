@@ -6,7 +6,8 @@ Cosmogeddon is an action-packed, multiplayer game where players take on the role
 
 With stunning graphics and immersive gameplay, Cosmogeddon takes players on an unforgettable journey through space. Whether you're playing solo or teaming up with friends, Cosmogeddon offers endless hours of fun and excitement.
 
-Can you master the Cosmogeddon and save the galaxy from destruction? [Play Here!](https://multiplayer-asteroids.herokuapp.com) 
+Can you master the Cosmogeddon and save the galaxy from destruction?
+[Play Here!](https://multiplayer-asteroids.herokuapp.com)
 
 ## Credits
 

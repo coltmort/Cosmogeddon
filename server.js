@@ -16,6 +16,7 @@ const Ship = require('./controllers/game/ship.js')
 let game1 = new Game(60)
 io.on('connection', client => {
   client.on('name', name => {
+    // console.log(session)
     let player = game1.ships[client.id] = new Ship(game1, name)
     client.on('input', data => { player.input = data});
     setInterval(() => { client.emit('tick', game1) }, 1000 / 60);

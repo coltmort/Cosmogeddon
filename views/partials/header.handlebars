@@ -6,7 +6,7 @@
     <nav>
         <!-- Conditionally render login or logout links -->
         {{#if logged_in}}
-        <a class="text-white text-lg" href="/profile">profile</a> <span class="text-white text-lg">|</span>
+        <a class="text-white text-lg" href="/dashboard">dashboard</a> <span class="text-white text-lg">|</span>
         <button class="no-button text-white text-lg" id="logout">logout</button>
         {{else}}
         <a class="font-bold text-md my-auto py-1 px-4 border-4 bg-cyan-50 border-orange-500 hover:border-orange-600 active:border-orange-700 rounded text-orange-500" href="/login">login</a>
