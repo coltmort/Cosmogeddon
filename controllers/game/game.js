@@ -13,15 +13,15 @@ class Game {
         this.score = 0;
         this.countDown= null;
         
+        
         setInterval(()=> this.tick(tickrate), 1000/tickrate);
         }
 
         tick(tickrate)  {
-            
             Object.values(this.ships).forEach(ship => { ship.tick(this); });
             this.asteroids.forEach(asteroid => { asteroid.tick(this); });
             this.lazers.forEach(lazer => { lazer.tick(this); });
-            if ( this.asteroids.length < 20 && Math.random() < this.asteroidSpawnRate) this.asteroids.push(new Asteroid(this)); 
+            if ( this.asteroids.length < 75 && Math.random() < this.asteroidSpawnRate) this.asteroids.push(new Asteroid(this)); 
 
             this.checkForGameOver();
         }
