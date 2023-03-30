@@ -53,7 +53,7 @@ class Ship {
         if(this.input.shoot) {
             game.lazers.push(new Lazer(this.x, this.y, this.angle, 10, 2));
 
-            this.reload = 20;
+            this.reload = 17;
         } 
     } 
 

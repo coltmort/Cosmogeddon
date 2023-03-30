@@ -1,11 +1,11 @@
 
 class Asteroid {
-    constructor(game, radius = Math.random() *100, x, y) {
+    constructor(game, radius = Math.random() *130, x, y) {
 
         this.r = radius //radius
         if(this.r < game.smallestAsteroidRadius) { this.r = game.smallestAsteroidRadius; } 
-        this.xv = Math.random() *8 -4; 
-        this.yv = Math.random() *8 -4; 
+        this.xv = Math.random() *6 -3; 
+        this.yv = Math.random() *6 -3; 
         this.x=x;
         this.y=y; 
         this.lives = (this.r *.001); //bigger asteroids is the more lives it will have
