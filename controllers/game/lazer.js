@@ -25,7 +25,7 @@ class Lazer {
                 if (asteroid.lives <= 0) {
                     game.asteroids.splice(game.asteroids.indexOf(asteroid), 1);
                     game.score ++;
-                    game.asteroidSpawnRate *= 1.02 ;
+                    game.asteroidSpawnRate *= 1.005 ;
                     if ((asteroid.r/2) > game.smallestAsteroidRadius) {
                         game.asteroids.push(new Asteroid(game, asteroid.r /2, asteroid.x, asteroid.y));
                         game.asteroids.push(new Asteroid(game, asteroid.r /2, asteroid.x, asteroid.y));

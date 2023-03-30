@@ -8,7 +8,7 @@ class Game {
         this.lazers = [];
         this.width = 1280;
         this.height = 720;
-        this.asteroidSpawnRate = .01;
+        this.asteroidSpawnRate = .0;
         this.smallestAsteroidRadius = 20;
         this.score = 0;
         this.countDown= null;
@@ -38,7 +38,7 @@ class Game {
             setTimeout(() => { // tell fleet there score
                 this.score = 0;
                 setTimeout(() => { // new game starting soon
-                    this.asteroidSpawnRate = .01;
+                    this.asteroidSpawnRate = .007;
                 }, 7500);
             }, 7000);
         }
